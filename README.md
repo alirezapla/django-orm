@@ -1,6 +1,13 @@
 # django-orm
 Current Django Version: [3.0](https://docs.djangoproject.com/en/3.0/ref/models/querysets/)
 
+you can add the dataset to your database :
+
+```python
+python manage.py loaddata Finance/fixtures/auth_sample.json
+python manage.py loaddata Finance/fixtures/data_sample.json
+````
+
 ## Methods that return new [QuerySets](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#methods-that-return-new-querysets)
 
 ****
