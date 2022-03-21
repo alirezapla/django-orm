@@ -1,6 +1,13 @@
 # django-orm
 Current Django Version: [3.0](https://docs.djangoproject.com/en/3.0/ref/models/querysets/)
 
+you can add the dataset to your database :
+
+```python
+python manage.py loaddata Finance/fixtures/auth_sample.json
+python manage.py loaddata Finance/fixtures/data_sample.json
+````
+
 ## Methods that return new [QuerySets](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#methods-that-return-new-querysets)
 
 ****
@@ -115,9 +122,31 @@ saleries = (
 
 **Field lookups are how you specify the meat of an SQL WHERE clause. They’re specified as keyword arguments to the QuerySet methods *filter()*, *exclude()* and *get()*.**
 
+## EmployeeProjectRelation Model
+
+|id	|hours	|role	|employee_id	|project_id|
+| :---: | :---: | :---: | :---: | :---: | 
+|1	|1	|Information |Systems Manager	|121	|40|
+|16	|16	|Account |Executive	|132	|13|
+|19	|19	|VP Product |Management	|119	|21|
+|38	|38	|Analyst |Programmer	|116	|48|
+|47	|47	|Mechanical |Systems Engineer	|115	|31|
+|55	|55	|Assistant |Professor	|123	|38|
+|95	|95	|Product |Engineer	|115	|36|
+
 ```python
 Example: Entry.objects.get(id__exact=14)  # note double underscore.
 ```
+
+```python
+Query = Project.objects.filter(employeeprojectrelation__isnull=False)
+```
+```python
+Query : {<QuerySet [<Project: Torrance>, <Project: Brannon>, <Project: Leif>, 
+                    <Project: Antonette>, <Project: Cedrick>, <Project: Larry>
+                    , <Project: Vivian>]>}
+```
+
 
  * [exact](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#exact)
  * [iexact](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#iexact)
