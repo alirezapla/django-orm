@@ -75,6 +75,27 @@ Attendance : <QuerySet [{'id': 18}, {'id': 20}, {'id': 23}, {'id': 30}, {'id':31
 |4	|1926.78	|5.3	|3.9	|4	|108|
 |5	|1907.07	|6	|3.1	|5	|109|
 ****
+x=1000
+
+````python
+Payslip.objects.filter(payment__isnull=False, payment__amount__gt=x)
+        .values("salary__employee_id")
+        .distinct()
+````
+````python
+<QuerySet [{'salary__employee_id': 112}, {'salary__employee_id': 119}, {'salary__employee_id': 111}, {'salary__employee_id': 128}]>
+````
+````python
+list(
+        Payslip.objects.filter(payment__isnull=False, payment__amount__gt=x)
+        .values_list("salary__employee_id", flat=True)
+        .distinct()
+    )
+````
+````python
+[112, 119, 111, 128]
+````
+****
 ## PAYSLIB MODEL
 |id	| base	| tax	 | insurance	| overtime |	created |	payment_id |	salary_id|
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
