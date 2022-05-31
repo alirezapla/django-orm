@@ -35,6 +35,30 @@ Attendance.objects.filter(late_cause=None)
 Attendance : <QuerySet [{'id': 18}, {'id': 20}, {'id': 23}, {'id': 30}, {'id':31}]>
 ````
 
+****
+### -> select_related
+
+```python
+entry = Entry.objects.first()
+# SELECT ... FROM "blog_entry" ...;
+
+# this attribute access runs a second query
+blog = entry.blog
+# SELECT ... FROM "blog_blog" WHERE ...;
+```
+#### fewer queries
+
+```python
+entry = Entry.objects.select_related("blog").first()
+# SELECT "blog_entry"."id", ... "blog_blog"."id", ...
+# FROM "blog_entry"
+# INNER JOIN "blog_blog" ...;
+
+blog = entry.blog
+# no query is run because we JOINed with the blog table above
+```
+
+
  * [filter](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#filter)
  * [exclude](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#exclude)
  * [annotate](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#annotate)
