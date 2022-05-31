@@ -59,6 +59,41 @@ blog = entry.blog
 ```
 
 
+PROJECT MODEL
+|id|title|estimated_end_time|end_time|department_id|
+| :---: | :---: | :---: | :---: | :---: | 
+|8|Andrew|2012-09-06 21:14:28.602000|2012-04-20 15:39:10.110000|5|
+|9|Shaun|2004-01-16 20:51:08.358000|1998-02-23 11:31:14.100000|4|
+|10|Mathilde|2006-03-13 10:41:01.394000|2011-04-07 05:44:47.386000|12|
+|11|Kamren|1984-04-11 12:31:32.528000|1995-09-08 00:30:26.789000|5|
+|12|Coralie|2001-10-27 17:05:11.218000|1990-10-30 23:40:33.358000|11|
+|13|Torrance|2015-06-10 00:26:12.473000|2003-03-08 14:25:37.396000|10|
+
+|id|hours|role|employee_id|project_id|
+| :---: | :---: | :---: | :---: | :---: | 
+|1|1|Information Systems Manager|121|40|
+|16|16|Account Executive|132|13|
+|19|19|VP Product Management|119|21|
+|38|38|Analyst Programmer|116|48|
+|47|47|Mechanical Systems Engineer|115|31|
+|55|55|Assistant Professor|123|38|
+|95|95|Product Engineer|115|36|
+
+
+
+```python
+Project.objects.filter(employeeprojectrelation__isnull=False)
+        .annotate(Count("employees__id", distinct=True))
+        .count()
+        
+ >> 7
+```
+```python
+ Project.objects.filter(employeeprojectrelation__isnull=False)
+        .annotate(Count("employees__id", distinct=True))
+ >> <QuerySet [<Project: Leif>, <Project: Vivian>, <Project: Antonette>, <Project: Larry>, <Project: Cedrick>, <Project: Brannon>, <Project: Torrance>]>
+```
+
  * [filter](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#filter)
  * [exclude](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#exclude)
  * [annotate](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#annotate)
