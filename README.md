@@ -81,6 +81,20 @@ departments = (
         .annotate(Count("department_id"))
     )
 ```
+```python
+<QuerySet [{'department_id': 4, 'department_id__count': 1}, {'department_id': 5, 'department_id__count': 2}, {'department_id': 6, 'department_id__count': 1}, {'department_id': 7, 'department_id__count': 1}, {'department_id': 9, 'department_id__count': 1}]>
+```
+```python
+for department in departments:
+        print(department)
+```
+```python
+{'department_id': 4, 'department_id__count': 1}
+{'department_id': 5, 'department_id__count': 2}
+{'department_id': 6, 'department_id__count': 1}
+{'department_id': 7, 'department_id__count': 1}
+{'department_id': 9, 'department_id__count': 1}
+```
 ****
 ## EMPLOYEE PROJECT RELATION MODEL
 |id|hours|role|employee_id|project_id|
@@ -97,13 +111,16 @@ departments = (
 Project.objects.filter(employeeprojectrelation__isnull=False)
         .annotate(Count("employees__id", distinct=True))
         .count()
-        
- >> 7
+```
+```python
+7
 ```
 ```python
  Project.objects.filter(employeeprojectrelation__isnull=False)
         .annotate(Count("employees__id", distinct=True))
- >> <QuerySet [<Project: Leif>, <Project: Vivian>, <Project: Antonette>, <Project: Larry>, <Project: Cedrick>, <Project: Brannon>, <Project: Torrance>]>
+```
+```python
+<QuerySet [<Project: Leif>, <Project: Vivian>, <Project: Antonette>, <Project: Larry>, <Project: Cedrick>, <Project: Brannon>, <Project: Torrance>]>
 ```
 ****
  * [filter](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#filter)
