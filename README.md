@@ -11,7 +11,7 @@ python manage.py loaddata Finance/fixtures/data_sample.json
 ## Methods that return new [QuerySets](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#methods-that-return-new-querysets)
 
 ****
-ATTENDANCE MODEL
+## ATTENDANCE MODEL
 |id	|date	|in_time	|out_time	|late_cause	|employee_id|
 | :---: | :---: | :---: | :---: | :---: | :---: | 
 |15	|2017-12-21	|09:13:31	|19:34:10	|NULL	|116|
@@ -58,17 +58,31 @@ blog = entry.blog
 # no query is run because we JOINed with the blog table above
 ```
 
-
-PROJECT MODEL
+****
+## PROJECT MODEL
 |id|title|estimated_end_time|end_time|department_id|
 | :---: | :---: | :---: | :---: | :---: | 
-|8|Andrew|2012-09-06 21:14:28.602000|2012-04-20 15:39:10.110000|5|
-|9|Shaun|2004-01-16 20:51:08.358000|1998-02-23 11:31:14.100000|4|
-|10|Mathilde|2006-03-13 10:41:01.394000|2011-04-07 05:44:47.386000|12|
-|11|Kamren|1984-04-11 12:31:32.528000|1995-09-08 00:30:26.789000|5|
-|12|Coralie|2001-10-27 17:05:11.218000|1990-10-30 23:40:33.358000|11|
 |13|Torrance|2015-06-10 00:26:12.473000|2003-03-08 14:25:37.396000|10|
+|21|Brannon|2004-01-18 04:08:10.534000|2001-10-11 05:20:13.552000|7|
+|31|Leif|1991-12-08 04:06:11.248000|2014-10-17 11:57:02.961000|3|
+|36|Antonette|1998-08-10 14:56:44.377000|1990-08-14 05:32:47.514000|5|
+|38|Cedrick|1999-06-03 09:21:45.416000|2008-05-16 18:27:27.612000|6|
+|40|Larry|2000-01-28 20:46:53.408000|2013-02-12 04:08:34.384000|5|
+|48|Vivian|1990-01-27 22:50:36.335000|2008-11-09 23:37:36.341000|3|
 
+```python
+departments = (
+        Project.objects.filter(
+            Q(estimated_end_time__date__gte=F("end_time__date"))
+            & Q(estimated_end_time__hour__gte=F("end_time__hour"))
+            & Q(estimated_end_time__minute__gte=F("end_time__minute"))
+        )
+        .values("department_id")
+        .annotate(Count("department_id"))
+    )
+```
+****
+## EMPLOYEE PROJECT RELATION MODEL
 |id|hours|role|employee_id|project_id|
 | :---: | :---: | :---: | :---: | :---: | 
 |1|1|Information Systems Manager|121|40|
@@ -78,8 +92,6 @@ PROJECT MODEL
 |47|47|Mechanical Systems Engineer|115|31|
 |55|55|Assistant Professor|123|38|
 |95|95|Product Engineer|115|36|
-
-
 
 ```python
 Project.objects.filter(employeeprojectrelation__isnull=False)
@@ -93,7 +105,7 @@ Project.objects.filter(employeeprojectrelation__isnull=False)
         .annotate(Count("employees__id", distinct=True))
  >> <QuerySet [<Project: Leif>, <Project: Vivian>, <Project: Antonette>, <Project: Larry>, <Project: Cedrick>, <Project: Brannon>, <Project: Torrance>]>
 ```
-
+****
  * [filter](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#filter)
  * [exclude](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#exclude)
  * [annotate](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#annotate)
