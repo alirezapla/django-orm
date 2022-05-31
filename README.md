@@ -117,10 +117,11 @@ Project.objects.filter(employeeprojectrelation__isnull=False)
 ```
 ```python
  Project.objects.filter(employeeprojectrelation__isnull=False)
+        .values("employees__id")
         .annotate(Count("employees__id", distinct=True))
 ```
 ```python
-<QuerySet [<Project: Leif>, <Project: Vivian>, <Project: Antonette>, <Project: Larry>, <Project: Cedrick>, <Project: Brannon>, <Project: Torrance>]>
+<QuerySet [{'employees__id': 115, 'employees__id__count': 1}, {'employees__id': 116, 'employees__id__count': 1}, {'employees__id': 119, 'employees__id__count': 1}, {'employees__id': 121, 'employees__id__count': 1}, {'employees__id': 123, 'employees__id__count': 1}, {'employees__id': 132, 'employees__id__count': 1}]>
 ```
 ****
  * [filter](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#filter)
