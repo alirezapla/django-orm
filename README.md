@@ -1,5 +1,26 @@
 # django-orm
-Current Django Version: [3.0](https://docs.djangoproject.com/en/3.0/ref/models/querysets/)
+
+
+##### Table of Contents  
+[Intro](#Intro)  
+[Methods that return new QuerySets](#Methods-that-return-new-QuerySets)  
+[Operators that return new QuerySets](#Operators-that-return-new-QuerySets)  
+[Methods that do not return QuerySets](#Methods-that-do-not-return-QuerySets)   
+[Aggregation functions](#Aggregation-functions)  
+[Query-related tools](#Query-related-tools)   
+<a name="Intro"/>
+<a name="Methods-that-return-new-QuerySets"/>
+<a name="Operators-that-return-new-QuerySets"/>
+<a name="Methods-that-do-not-return-QuerySets"/> 
+<a name="Aggregation-functions"/>
+<a name="Query-related-tools"/>
+ 
+
+
+
+
+# Intro
+Current ```Django``` Version: [3.0](https://docs.djangoproject.com/en/3.0/ref/models/querysets/)
 
 you can add the dataset to your database :
 
@@ -8,7 +29,9 @@ python manage.py loaddata Finance/fixtures/auth_sample.json
 python manage.py loaddata Finance/fixtures/data_sample.json
 ````
 
-## Methods that return new [QuerySets](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#methods-that-return-new-querysets)
+
+
+# Methods that return new [QuerySets](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#methods-that-return-new-querysets)
 
 ****
 ## ATTENDANCE MODEL
@@ -123,6 +146,33 @@ Project.objects.filter(employeeprojectrelation__isnull=False)
 ```python
 <QuerySet [{'employees__id': 115, 'employees__id__count': 1}, {'employees__id': 116, 'employees__id__count': 1}, {'employees__id': 119, 'employees__id__count': 1}, {'employees__id': 121, 'employees__id__count': 1}, {'employees__id': 123, 'employees__id__count': 1}, {'employees__id': 132, 'employees__id__count': 1}]>
 ```
+
+****
+```sql
+SELECT name, age FROM Person;
+```
+```python
+Person.objects.only('name','age')
+```
+****
+```sql
+SELECT * FROM Person WHERE age BETWEEN 10 AND 20;
+```
+```python
+Person.objects.filter(age__range=(10, 20))
+```
+****
+```sql
+SELECT * FROM Person order by age;
+
+SELECT * FROM Person ORDER BY age DESC;
+```
+```python
+Person.objects.order_by('age')
+
+Person.objects.order_by('-age')
+```
+
 ****
  * [filter](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#filter)
  * [exclude](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#exclude)
@@ -148,12 +198,17 @@ Project.objects.filter(employeeprojectrelation__isnull=False)
  * [select_for_update](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#select-for-update)
  * [raw](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#raw)
 
-## Operators that return new [QuerySets](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#operators-that-return-new-querysets)
+```diff
+- Only Opposite to defer 
+```
+
+
+# Operators that return new QuerySets
 
  * [AND (&)](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#and)
  * [OR (|)](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#or)
 
-## Methods that do not return [QuerySets](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#methods-that-do-not-return-querysets)
+# Methods that do not return QuerySets
 
 ## SALERY MODEL
 |id |	base	| tax |	insurance |	overtime	|employee_id|
@@ -230,7 +285,7 @@ saleries = (
 
 ## Field lookups
 
-**Field lookups are how you specify the meat of an SQL WHERE clause. They’re specified as keyword arguments to the QuerySet methods *filter()*, *exclude()* and *get()*.**
+Field lookups are how you specify the meat of an SQL WHERE clause. They’re specified as keyword arguments to the QuerySet methods `filter()`, `exclude()` and `get()`
 
 ## EmployeeProjectRelation Model
 
@@ -257,6 +312,23 @@ Query : {<QuerySet [<Project: Torrance>, <Project: Brannon>, <Project: Leif>,
                     , <Project: Vivian>]>}
 ```
 
+****
+```sql
+WHERE name like '%A%';
+WHERE name like binary '%A%';
+WHERE name like 'A%';
+WHERE name like binary 'A%';
+WHERE name like '%A';
+WHERE name like binary '%A';
+```
+```python
+Person.objects.filter(name__icontains='A')
+Person.objects.filter(name__contains='A')
+Person.objects.filter(name__istartswith='A')
+Person.objects.filter(name__startswith='A')
+Person.objects.filter(name__iendswith='A')
+Person.objects.filter(name__endswith='A')
+```
 
  * [exact](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#exact)
  * [iexact](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#iexact)
@@ -294,7 +366,32 @@ Query : {<QuerySet [<Project: Torrance>, <Project: Brannon>, <Project: Leif>,
 Entry.objects.filter(status__in=['Hung over', 'Sober', 'Drunk'])
 ```
 
-## Aggregation functions ([link](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#aggregation-functions))
+# Aggregation functions 
+
+```sql
+SELECT MIN(age) FROM Person;
+SELECT MAX(age) FROM Person;
+SELECT AVG(age) FROM Person;
+SELECT SUM(age) FROM Person;
+SELECT COUNT(*) FROM Person;
+```
+```python
+from django.db.models import Min, Max, Avg, Sum
+
+Person.objects.all().aggregate(Min('age'))
+{'age__min': 0}
+
+Person.objects.all().aggregate(Max('age'))
+{'age__max': 100}
+
+Person.objects.all().aggregate(Avg('age'))
+{'age__avg': 50}
+
+Person.objects.all().aggregate(Sum('age'))
+{'age__sum': 5050}
+
+Person.objects.count()
+```
 
  * [output_field](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#output-field)
  * [filter](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#aggregate-filter)
@@ -307,7 +404,8 @@ Entry.objects.filter(status__in=['Hung over', 'Sober', 'Drunk'])
  * [Sum](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#sum)
  * [Variance](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#variance)
 
-## Query-related tools ([link](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#query-related-tools))
+<!-- # Query-related tools ([link](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#query-related-tools)) -->
+# Query-related 
 
  * [Q() objects](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#q-objects)
  * [Prefetch() objects](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#prefetch-objects)
