@@ -419,8 +419,7 @@ do a NOT query in Django queryset
 from django.db.models import Q
 queryset = User.objects.filter(~Q(id__lt=5))
 queryst
-<QuerySet [<User: Ritesh>, <User: Billy>, <User: Radha>, <User: sohan>, <User: Raghu>,
-˓<User: rishab>]>
+<QuerySet [<User: User6>, <User: User7>, <User: User8>,...,]> 
 ```
  * [Q() objects](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#q-objects)
  * [Prefetch() objects](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#prefetch-objects)
