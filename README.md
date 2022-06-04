@@ -1,19 +1,22 @@
 # django-orm
 
 
-##### Table of Contents  
+# Table of Contents  
 [Intro](#Intro)  
 [Methods that return new QuerySets](#Methods-that-return-new-QuerySets)  
 [Operators that return new QuerySets](#Operators-that-return-new-QuerySets)  
 [Methods that do not return QuerySets](#Methods-that-do-not-return-QuerySets)   
 [Aggregation functions](#Aggregation-functions)  
 [Query-related tools](#Query-related-tools)   
+[References](#References)
 <a name="Intro"/>
 <a name="Methods-that-return-new-QuerySets"/>
 <a name="Operators-that-return-new-QuerySets"/>
 <a name="Methods-that-do-not-return-QuerySets"/> 
 <a name="Aggregation-functions"/>
 <a name="Query-related-tools"/>
+<a name="References"/>
+
  
 
 
@@ -210,6 +213,8 @@ no query is run because we JOINed with the blog table above
 - Only Opposite to defer 
 ```
 
+[Table of Contents](#Table-of-Contents)  
+<a name="Table-of-Contents"/>
 
 # Operators that return new QuerySets
 
@@ -290,6 +295,9 @@ saleries = (
  * [delete](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#delete)
  * [as_manager](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#as-manager)
  * [explain](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#explain)
+
+[Table of Contents](#Table-of-Contents)  
+<a name="Table-of-Contents"/>
 
 ## Field lookups
 
@@ -374,6 +382,9 @@ Person.objects.filter(name__endswith='A')
 Entry.objects.filter(status__in=['Hung over', 'Sober', 'Drunk'])
 ```
 
+[Table of Contents](#Table-of-Contents)  
+<a name="Table-of-Contents"/>
+
 # Aggregation functions 
 
 ```sql
@@ -412,14 +423,15 @@ Person.objects.count()
  * [Sum](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#sum)
  * [Variance](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#variance)
 
-<!-- # Query-related tools ([link](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#query-related-tools)) -->
-# Query-related 
+# Query-related tools 
+([link](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#query-related-tools))
+<!-- # Query-related  -->
 do a NOT query in Django queryset
 ```python
 from django.db.models import Q
 queryset = User.objects.filter(~Q(id__lt=5))
-queryst
-<QuerySet [<User: User6>, <User: User7>, <User: User8>,...,]> 
+
+queryst : <QuerySet [<User: User6>, <User: User7>, <User: User8>,...,]> 
 ```
  * [Q() objects](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#q-objects)
  * [Prefetch() objects](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#prefetch-objects)
@@ -427,3 +439,20 @@ queryst
  * [FilteredRelation() objects](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#filteredrelation-objects)
 
 - - -
+[Table of Contents](#Table-of-Contents)  
+<a name="Table-of-Contents"/>
+
+
+
+
+# References
+
+https://django-orm-cookbook-ko.readthedocs.io/_/downloads/en/latest/pdf/
+
+https://quera.org/contest/assignments/37739/problems
+
+https://gist.github.com/rg3915/91766c2de54233541f6743edba44732c
+
+https://narengowda.github.io/django-queries-cheat-sheet/
+
+
