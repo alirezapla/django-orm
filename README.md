@@ -59,29 +59,6 @@ Attendance : <QuerySet [{'id': 18}, {'id': 20}, {'id': 23}, {'id': 30}, {'id':31
 ````
 
 ****
-### -> select_related
-
-```python
-entry = Entry.objects.first()
-# SELECT ... FROM "blog_entry" ...;
-
-# this attribute access runs a second query
-blog = entry.blog
-# SELECT ... FROM "blog_blog" WHERE ...;
-```
-#### fewer queries
-
-```python
-entry = Entry.objects.select_related("blog").first()
-# SELECT "blog_entry"."id", ... "blog_blog"."id", ...
-# FROM "blog_entry"
-# INNER JOIN "blog_blog" ...;
-
-blog = entry.blog
-# no query is run because we JOINed with the blog table above
-```
-
-****
 ## PROJECT MODEL
 |id|title|estimated_end_time|end_time|department_id|
 | :---: | :---: | :---: | :---: | :---: | 
@@ -172,6 +149,37 @@ Person.objects.order_by('age')
 
 Person.objects.order_by('-age')
 ```
+****
+### -> select_related
+
+```sql
+SELECT ... FROM "blog_entry" ...;
+```
+```python
+entry = Entry.objects.first()
+```
+
+this attribute access runs a second query
+```python
+blog = entry.blog
+```
+```sql
+SELECT ... FROM "blog_blog" WHERE ...;
+```
+#### fewer queries
+
+```sql
+SELECT "blog_entry"."id", ... "blog_blog"."id", ...
+FROM "blog_entry"
+INNER JOIN "blog_blog" ...;
+```
+```python
+entry = Entry.objects.select_related("blog").first()
+```
+```python
+blog = entry.blog
+```
+no query is run because we JOINed with the blog table above
 
 ****
  * [filter](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#filter)
