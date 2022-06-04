@@ -444,7 +444,6 @@ queryst : <QuerySet [<User: User6>, <User: User7>, <User: User8>,...,]>
 
 
 
-
 # References
 
 https://django-orm-cookbook-ko.readthedocs.io/_/downloads/en/latest/pdf/
