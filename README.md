@@ -414,7 +414,14 @@ Person.objects.count()
 
 <!-- # Query-related tools ([link](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#query-related-tools)) -->
 # Query-related 
-
+do a NOT query in Django queryset
+```python
+from django.db.models import Q
+queryset = User.objects.filter(~Q(id__lt=5))
+queryst
+<QuerySet [<User: Ritesh>, <User: Billy>, <User: Radha>, <User: sohan>, <User: Raghu>,
+˓<User: rishab>]>
+```
  * [Q() objects](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#q-objects)
  * [Prefetch() objects](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#prefetch-objects)
  * [prefetch_related_objects()](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#prefetch-related-objects)
