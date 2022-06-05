@@ -33,18 +33,33 @@ def query_3():
 
 
 def query_4(x):
-    # TODO
-    pass
+    if EmployeeProjectRelation.objects.filter(employee_id=x).exists():
+        return EmployeeProjectRelation.objects.filter(employee_id=x).aggregate(
+            total_hours=Sum("hours")
+        )
+    return {"total_hours": None}
 
 
 def query_5(x):
-    # TODO
-    pass
+    return list(
+        Payslip.objects.filter(payment__isnull=False, payment__amount__gt=x)
+        .values_list("salary__employee_id", flat=True)
+        .distinct()
+    )
 
 
 def query_6():
-    # TODO
-    pass
+    total_hours = (
+        Employee.objects.filter(employeeprojectrelation__isnull=False)
+        .order_by("account__username")
+        .annotate(total_hours=Sum("employeeprojectrelation__hours"))
+    )
+    max_total_hours = 0
+    for total_hour in total_hours:
+        if total_hour.total_hours > max_total_hours:
+            max_total_hours = total_hour.total_hours
+            result = total_hour
+    return result
 
 
 def query_7():
