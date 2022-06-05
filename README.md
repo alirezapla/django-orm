@@ -2,13 +2,13 @@
 
 
 # Table of Contents  
-[Intro](#Intro)  
-[Methods that return new QuerySets](#Methods-that-return-new-QuerySets)  
-[Operators that return new QuerySets](#Operators-that-return-new-QuerySets)  
-[Methods that do not return QuerySets](#Methods-that-do-not-return-QuerySets)   
-[Aggregation functions](#Aggregation-functions)  
-[Query-related tools](#Query-related-tools)   
-[References](#References)
+- [Intro](#Intro)  
+- [Methods that return new QuerySets](#Methods-that-return-new-QuerySets)  
+- [Operators that return new QuerySets](#Operators-that-return-new-QuerySets)  
+- [Methods that do not return QuerySets](#Methods-that-do-not-return-QuerySets)   
+- [Aggregation functions](#Aggregation-functions)  
+- [Query-related tools](#Query-related-tools)   
+- [References](#References)
 <a name="Intro"/>
 <a name="Methods-that-return-new-QuerySets"/>
 <a name="Operators-that-return-new-QuerySets"/>
@@ -213,8 +213,15 @@ no query is run because we JOINed with the blog table above
 - Only Opposite to defer 
 ```
 
+<details><summary>Back to top</summary>
+<p>
+
 [Table of Contents](#Table-of-Contents)  
 <a name="Table-of-Contents"/>
+
+
+</p>
+</details>
 
 # Operators that return new QuerySets
 
@@ -296,8 +303,16 @@ saleries = (
  * [as_manager](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#as-manager)
  * [explain](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#explain)
 
+<details><summary>Back to top</summary>
+<p>
+
 [Table of Contents](#Table-of-Contents)  
 <a name="Table-of-Contents"/>
+
+
+</p>
+</details>
+
 
 ## Field lookups
 
@@ -382,8 +397,16 @@ Person.objects.filter(name__endswith='A')
 Entry.objects.filter(status__in=['Hung over', 'Sober', 'Drunk'])
 ```
 
+<details><summary>Back to top</summary>
+<p>
+
 [Table of Contents](#Table-of-Contents)  
 <a name="Table-of-Contents"/>
+
+
+</p>
+</details>
+
 
 # Aggregation functions 
 
@@ -439,8 +462,16 @@ queryst : <QuerySet [<User: User6>, <User: User7>, <User: User8>,...,]>
  * [FilteredRelation() objects](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#filteredrelation-objects)
 
 - - -
+
+<details><summary>Back to top</summary>
+<p>
+
 [Table of Contents](#Table-of-Contents)  
 <a name="Table-of-Contents"/>
+
+
+</p>
+</details>
 
 
 
