@@ -85,7 +85,9 @@ departments = (
     )
 ```
 ```python
-<QuerySet [{'department_id': 4, 'department_id__count': 1}, {'department_id': 5, 'department_id__count': 2}, {'department_id': 6, 'department_id__count': 1}, {'department_id': 7, 'department_id__count': 1}, {'department_id': 9, 'department_id__count': 1}]>
+<QuerySet [{'department_id': 4, 'department_id__count': 1}, {'department_id': 5, 'department_id__count': 2},
+{'department_id': 6, 'department_id__count': 1}, {'department_id': 7, 'department_id__count': 1},
+{'department_id': 9, 'department_id__count': 1}]>
 ```
 ```python
 for department in departments:
@@ -124,7 +126,9 @@ Project.objects.filter(employeeprojectrelation__isnull=False)
         .annotate(Count("employees__id", distinct=True))
 ```
 ```python
-<QuerySet [{'employees__id': 115, 'employees__id__count': 1}, {'employees__id': 116, 'employees__id__count': 1}, {'employees__id': 119, 'employees__id__count': 1}, {'employees__id': 121, 'employees__id__count': 1}, {'employees__id': 123, 'employees__id__count': 1}, {'employees__id': 132, 'employees__id__count': 1}]>
+<QuerySet [{'employees__id': 115, 'employees__id__count': 1}, {'employees__id': 116, 'employees__id__count': 1},
+{'employees__id': 119, 'employees__id__count': 1}, {'employees__id': 121, 'employees__id__count': 1},
+{'employees__id': 123, 'employees__id__count': 1}, {'employees__id': 132, 'employees__id__count': 1}]>
 ```
 
 ****
@@ -345,20 +349,20 @@ Query : {<QuerySet [<Project: Torrance>, <Project: Brannon>, <Project: Leif>,
 
 ****
 ```sql
-WHERE name like '%A%';
-WHERE name like binary '%A%';
-WHERE name like 'A%';
-WHERE name like binary 'A%';
-WHERE name like '%A';
-WHERE name like binary '%A';
+WHERE username like '%A%';
+WHERE username like binary '%A%';
+WHERE username like 'A%';
+WHERE username like binary 'A%';
+WHERE username like '%A';
+WHERE username like binary '%A';
 ```
 ```python
-Person.objects.filter(name__icontains='A')
-Person.objects.filter(name__contains='A')
-Person.objects.filter(name__istartswith='A')
-Person.objects.filter(name__startswith='A')
-Person.objects.filter(name__iendswith='A')
-Person.objects.filter(name__endswith='A')
+Employee.objects.filter(account__username__icontains="A")
+Employee.objects.filter(account__username__contains='A')
+Employee.objects.filter(account__username__istartswith='A')
+Employee.objects.filter(account__username__startswith='A')
+Employee.objects.filter(account__username__iendswith='A')
+Employee.objects.filter(account__username__endswith='A')
 ```
 
  * [exact](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#exact)
@@ -452,9 +456,9 @@ Person.objects.count()
 do a NOT query in Django queryset
 ```python
 from django.db.models import Q
-queryset = User.objects.filter(~Q(id__lt=5))
+queryst=Employee.objects.filter(~Q(id__gt=107)).values("id")
 
-queryst : <QuerySet [<User: User6>, <User: User7>, <User: User8>,...,]> 
+queryst : <QuerySet [{'id': 106}, {'id': 107}, {'id': 105}]> 
 ```
  * [Q() objects](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#q-objects)
  * [Prefetch() objects](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#prefetch-objects)
