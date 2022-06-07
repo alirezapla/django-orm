@@ -37,7 +37,7 @@ python manage.py loaddata Finance/fixtures/data_sample.json
 # Methods that return new [QuerySets](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#methods-that-return-new-querysets)
 
 ****
-## ATTENDANCE MODEL
+### ATTENDANCE MODEL
 |id	|date	|in_time	|out_time	|late_cause	|employee_id|
 | :---: | :---: | :---: | :---: | :---: | :---: | 
 |15	|2017-12-21	|09:13:31	|19:34:10	|NULL	|116|
@@ -62,7 +62,7 @@ Attendance : <QuerySet [{'id': 18}, {'id': 20}, {'id': 23}, {'id': 30}, {'id':31
 ````
 
 ****
-## PROJECT MODEL
+### PROJECT MODEL
 |id|title|estimated_end_time|end_time|department_id|
 | :---: | :---: | :---: | :---: | :---: | 
 |13|Torrance|2015-06-10 00:26:12.473000|2003-03-08 14:25:37.396000|10|
@@ -72,6 +72,11 @@ Attendance : <QuerySet [{'id': 18}, {'id': 20}, {'id': 23}, {'id': 30}, {'id':31
 |38|Cedrick|1999-06-03 09:21:45.416000|2008-05-16 18:27:27.612000|6|
 |40|Larry|2000-01-28 20:46:53.408000|2013-02-12 04:08:34.384000|5|
 |48|Vivian|1990-01-27 22:50:36.335000|2008-11-09 23:37:36.341000|3|
+
+
+## F Object
+
+can be used to compare different attributes of one model at the same time
 
 ```python
 departments = (
@@ -101,7 +106,7 @@ for department in departments:
 {'department_id': 9, 'department_id__count': 1}
 ```
 ****
-## EMPLOYEE PROJECT RELATION MODEL
+### EMPLOYEE PROJECT RELATION MODEL
 |id|hours|role|employee_id|project_id|
 | :---: | :---: | :---: | :---: | :---: | 
 |1|1|Information Systems Manager|121|40|
@@ -234,7 +239,7 @@ no query is run because we JOINed with the blog table above
 
 # Methods that do not return QuerySets
 
-## SALERY MODEL
+### SALERY MODEL
 |id |	base	| tax |	insurance |	overtime	|employee_id|
 | :---: | :---: | :---: | :---: | :---: | :---: |
 |1	|1757.05	|0.3	|3.3	|1	|105|
@@ -264,7 +269,7 @@ list(
 [112, 119, 111, 128]
 ````
 ****
-## PAYSLIB MODEL
+### PAYSLIB MODEL
 |id	| base	| tax	 | insurance	| overtime |	created |	payment_id |	salary_id|
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 |9	|1076.37	|85	|103	|495	|2018-07-28	|NULL	|18|
@@ -322,7 +327,7 @@ saleries = (
 
 Field lookups are how you specify the meat of an SQL WHERE clause. They’re specified as keyword arguments to the QuerySet methods `filter()`, `exclude()` and `get()`
 
-## EmployeeProjectRelation Model
+### EmployeeProjectRelation Model
 
 |id	|hours	|role	|employee_id	|project_id|
 | :---: | :---: | :---: | :---: | :---: | 
