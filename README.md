@@ -74,9 +74,13 @@ Attendance : <QuerySet [{'id': 18}, {'id': 20}, {'id': 23}, {'id': 30}, {'id':31
 |48|Vivian|1990-01-27 22:50:36.335000|2008-11-09 23:37:36.341000|3|
 
 
-## F Object
+## [F](https://docs.djangoproject.com/en/3.1/ref/models/expressions/#f-expressions) Object 
 
-can be used to compare different attributes of one model at the same time
+can be used to compare different attributes of one model at the same time.
+
+We can also use mathematical operations.
+
+useful for optimizing query and memory usage.
 
 ```python
 departments = (
