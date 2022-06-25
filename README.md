@@ -9,6 +9,7 @@
 - [Aggregation functions](#Aggregation-functions)  
 - [Query-related tools](#Query-related-tools)   
 - [References](#References)
+- [Database transactions](#Database-transactions)
 <a name="Intro"/>
 <a name="Methods-that-return-new-QuerySets"/>
 <a name="Operators-that-return-new-QuerySets"/>
@@ -16,6 +17,7 @@
 <a name="Aggregation-functions"/>
 <a name="Query-related-tools"/>
 <a name="References"/>
+<a name="Database-transactions"/>
 
  
 
@@ -32,6 +34,16 @@ python manage.py loaddata Finance/fixtures/auth_sample.json
 python manage.py loaddata Finance/fixtures/data_sample.json
 ````
 
+```python
+from django.db.models import Subquery
+
+users = User.objects.all()
+UserParent.objects.filter(user_id__in=Subquery(users.values('id')))
+
+<QuerySet [<UserParent: UserParent object (2)>, <UserParent: UserParent object (5)>, <UserParent: UserParent object (8)>]>
+
+
+```
 
 
 # Methods that return new [QuerySets](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#methods-that-return-new-querysets)
@@ -485,6 +497,37 @@ queryst : <QuerySet [{'id': 106}, {'id': 107}, {'id': 105}]>
 
 </p>
 </details>
+
+
+# Database transactions
+ * [transaction](https://docs.djangoproject.com/en/4.0/topics/db/transactions/)
+
+```python
+from django.db import transaction
+
+payor = customer.objects.select_for_update().get(name=x)
+payee = customer.objects.select_for_update().get(name=y)
+
+with transaction.atomic():
+    payor.balance -= z
+    payor.save()
+    payee.balance += z
+    payee.save()
+
+
+```
+
+
+<details><summary>Back to top</summary>
+<p>
+
+[Table of Contents](#Table-of-Contents)  
+<a name="Table-of-Contents"/>
+
+
+</p>
+</details>
+
 
 
 
