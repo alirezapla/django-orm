@@ -34,6 +34,11 @@ python manage.py loaddata Finance/fixtures/auth_sample.json
 python manage.py loaddata Finance/fixtures/data_sample.json
 ````
 
+
+
+
+# Methods that return new [QuerySets](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#methods-that-return-new-querysets)
+
 ```python
 from django.db.models import Subquery
 
@@ -41,12 +46,7 @@ users = User.objects.all()
 UserParent.objects.filter(user_id__in=Subquery(users.values('id')))
 
 <QuerySet [<UserParent: UserParent object (2)>, <UserParent: UserParent object (5)>, <UserParent: UserParent object (8)>]>
-
-
 ```
-
-
-# Methods that return new [QuerySets](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#methods-that-return-new-querysets)
 
 ****
 ### ATTENDANCE MODEL
