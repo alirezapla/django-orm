@@ -102,24 +102,26 @@ departments = (
             & Q(estimated_end_time__minute__gte=F("end_time__minute"))
         )
         .values("department_id")
-        .annotate(Count("department_id"))
+        .annotate(dep_count=Count("department_id")).latest("dep_count")
     )
 ```
 ```python
-<QuerySet [{'department_id': 4, 'department_id__count': 1}, {'department_id': 5, 'department_id__count': 2},
-{'department_id': 6, 'department_id__count': 1}, {'department_id': 7, 'department_id__count': 1},
-{'department_id': 9, 'department_id__count': 1}]>
+{'department_id': 5, 'dep_count': 2}
+```
+
+
+better:
+```python
+Department.objects.filter(
+            Q(project__estimated_end_time__date__gte=F("project__end_time__date"))
+            & Q(project__estimated_end_time__hour__gte=F("project__end_time__hour"))
+            & Q(project__estimated_end_time__minute__gte=F("project__end_time__minute"))
+        )
+        .annotate(f_count=Count("project", distinct=True))
+        .latest("f_count").__dict__
 ```
 ```python
-for department in departments:
-        print(department)
-```
-```python
-{'department_id': 4, 'department_id__count': 1}
-{'department_id': 5, 'department_id__count': 2}
-{'department_id': 6, 'department_id__count': 1}
-{'department_id': 7, 'department_id__count': 1}
-{'department_id': 9, 'department_id__count': 1}
+{'_state': <django.db.models.base.ModelState object at 0x7f36f5dc3700>, 'id': 5, 'name': 'Vinder', 'phone': '8175627856', 'f_count': 2}
 ```
 ****
 ### EMPLOYEE PROJECT RELATION MODEL
@@ -328,6 +330,8 @@ saleries = (
  * [as_manager](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#as-manager)
  * [explain](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#explain)
 
+
+
 <details><summary>Back to top</summary>
 <p>
 
@@ -434,6 +438,8 @@ Entry.objects.filter(status__in=['Hung over', 'Sober', 'Drunk'])
 
 
 # Aggregation functions 
+aggregate() is a terminal clause for a QuerySet
+
 
 ```sql
 SELECT MIN(age) FROM Person;
@@ -470,6 +476,19 @@ Person.objects.count()
  * [StdDev](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#stddev)
  * [Sum](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#sum)
  * [Variance](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#variance)
+
+example for `extra`
+```python
+departments = Departments.objects.all().extra(select = {
+     'product_count' : """ SELECT COUNT(*) FROM appname_department
+                           JOIN appname_product
+                               ON appname_product.dept_id = appname_department.id
+                           JOIN appname_review 
+                               ON appname_review.product_id = appname_product.id
+                           WHERE appname_review.time BETWEEN %s AND %s
+                       """
+}, params=[start, end])
+```
 
 # Query-related tools 
 ([link](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#query-related-tools))
