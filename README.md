@@ -10,6 +10,7 @@
 - [Query-related tools](#Query-related-tools)   
 - [References](#References)
 - [Database transactions](#Database-transactions)
+- [Improve query performance](#Improve-query-performance)
 <a name="Intro"/>
 <a name="Methods-that-return-new-QuerySets"/>
 <a name="Operators-that-return-new-QuerySets"/>
@@ -18,6 +19,7 @@
 <a name="Query-related-tools"/>
 <a name="References"/>
 <a name="Database-transactions"/>
+<a name="Improve-query-performance"/>
 
  
 
@@ -548,7 +550,17 @@ with transaction.atomic():
 </details>
 
 
+# Improve query performance
 
+<details><summary>Back to top</summary>
+<p>
+
+[Table of Contents](#Table-of-Contents)  
+<a name="Table-of-Contents"/>
+
+
+</p>
+</details>
 
 # References
 
