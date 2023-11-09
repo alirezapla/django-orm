@@ -572,4 +572,6 @@ https://gist.github.com/rg3915/91766c2de54233541f6743edba44732c
 
 https://narengowda.github.io/django-queries-cheat-sheet/
 
+The Temple of Django Database Performance
+
 
