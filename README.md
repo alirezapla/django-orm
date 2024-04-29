@@ -143,7 +143,7 @@ Project.objects.filter(employeeprojectrelation__isnull=False)
         .count()
 ```
 ```python
-7
+6
 ```
 ```python
  Project.objects.filter(employeeprojectrelation__isnull=False)
